@@ -1,3 +1,7 @@
+// Author: Shawn Saunders
+// Date: 7/6/2026
+// Description: Small console game to shoot projectiles based on a power
+//              and angle. Objective is to shoot the opposing player.
 import java.util.Scanner;
 
 public class main {
@@ -11,16 +15,21 @@ public class main {
     public static void main(String[] args) {
 
         boolean gameIsRunning = true;
+        String playerOneName = gameTools.getName();
+        String playerTwoName = gameTools.getName();
         while (gameIsRunning) {
-            gameTools.runGame();
+            gameTools.runGame(playerOneName, playerTwoName);
             System.out.println("Game over! Would you like to play again? (Y/N)");
             String gameChoice = input.nextLine();
-            if (gameChoice.equalsIgnoreCase("Y")) {
+            if (gameChoice.equalsIgnoreCase("YES") ||
+                    gameChoice.equalsIgnoreCase("Y")) {
                 System.out.println("Resetting game!");
-            } else if (gameChoice.equalsIgnoreCase("N")) {
+            } else if (gameChoice.equalsIgnoreCase("NO") ||
+                    gameChoice.equalsIgnoreCase("N")) {
                 gameIsRunning = false;
             }
         }
+        System.out.println("Game exiting. Goodbye!");
 
 
     }
