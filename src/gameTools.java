@@ -3,6 +3,7 @@
 // Description: A set of tools to run the tank game
 //              using functions.
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class gameTools {
@@ -17,7 +18,6 @@ public class gameTools {
      * @param min Gets the minimum range value
      * @param max Gets the maximum range value
      */
-
     static double getDoubleInRange (String valueType, int min, int max){
         double result = 0;
         boolean isValidating = true;
@@ -79,6 +79,7 @@ public class gameTools {
     /**
      * getImpact, preforms the math required to find the impact area
      * @param shooterLocation the location of the one firing a projectile
+     * @param enemyLocation the location of the target the shooter is trying to hit
      * @return returns the location that was hit
      */
     static double getImpact (double shooterLocation, double enemyLocation){
@@ -118,34 +119,43 @@ public class gameTools {
      * @return whether the location was the same as the opponent
      */
     static boolean hasImpacted (double impact, double playerLocation) {
-        final double HIT_RADIUS = 5.0;
+        final double HIT_RADIUS = 1.0;
         return Math.abs(impact - playerLocation) <= HIT_RADIUS;
     }
 
+    static Random random = new Random();
     /**
      * runGame, main method to run each round of the game
+     * @param playerOneName the name of the first player
+     * @param playerTwoName the name of the second player
      */
     static void runGame(String playerOneName, String playerTwoName) {
         final double MAX = 400;
         final double MIN = 0;
         boolean gameOver = false;
-        double playerOneLocation = MIN + (Math.random() * (MAX - MIN));
-        double playerTwoLocation = MIN + (Math.random() * (MAX - MIN));
+        double playerOneLocation = random.nextDouble(MIN,MAX);
+        double playerTwoLocation = random.nextDouble(MIN,MAX);
         double impact;
         int turn = 0;
 
         while (!gameOver) {
             if (turn % 2 == 0) {
-                System.out.println(debugSolvePower(playerOneLocation, playerTwoLocation));
+                // Debug to tell you the exact power and angle to hit the opponent
+                // System.out.println(debugSolvePower(playerOneLocation, playerTwoLocation));
+
                 System.out.println("Player " + playerOneName + " it's your turn.");
                 impact = getImpact(playerOneLocation, playerTwoLocation);
+
                 if (hasImpacted(impact, playerTwoLocation)) {
                     gameOver = true;
                 }
             } else {
-                System.out.println(debugSolvePower(playerTwoLocation, playerOneLocation));
+                // Debug to tell you the exact power and angle to hit the opponent
+                // System.out.println(debugSolvePower(playerTwoLocation, playerOneLocation));
+
                 System.out.println("Player " + playerTwoName + " it's your turn.");
                 impact = getImpact(playerTwoLocation, playerOneLocation);
+
                 if (hasImpacted(impact, playerOneLocation)) {
                     gameOver = true;
                 }
@@ -153,11 +163,8 @@ public class gameTools {
             turn++;
         }
 
-        if (turn %2 == 1) {
-            System.out.println(playerOneName + " wins!");
-        } else {
-            System.out.println(playerTwoName + " wins!");
-        }
+        // Trinary operator (as discussed to avoid an if statement for turn % 2 == 1)
+        System.out.println(turn % 2 == 1 ? playerOneName : playerTwoName + " wins!");
     }
 
     /**

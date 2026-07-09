@@ -8,7 +8,8 @@ public class main {
     public static Scanner input = new Scanner(System.in);
 
     /**
-     * main method, runs the main game loop and prompts to restart game after the game ends
+     * main method, runs the main game loop and prompts to restart
+     * game after the game ends
      * @author Shawn Saunders
      * @param args Does nothing... for now!
      */
