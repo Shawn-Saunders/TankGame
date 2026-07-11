@@ -15,12 +15,18 @@ public class main {
      */
     public static void main(String[] args) {
 
+        // declare local variables
         boolean gameIsRunning = true;
         String playerOneName = gameTools.getName();
         String playerTwoName = gameTools.getName();
+
+        // Repeat game loop
         while (gameIsRunning) {
+            // Runs the game
             gameTools.runGame(playerOneName, playerTwoName);
             System.out.println("Game over! Would you like to play again? (Y/N)");
+
+            // Input
             String gameChoice = input.nextLine();
             if (gameChoice.equalsIgnoreCase("YES") ||
                     gameChoice.equalsIgnoreCase("Y")) {
